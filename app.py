@@ -18,4 +18,4 @@ if __name__ == "__main__":
         port=8024,
         app=application
     )
-    w_s.handle_request()
+    w_s.serve_forever()
