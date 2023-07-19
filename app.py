@@ -2,6 +2,7 @@ import os
 import wsgiref.simple_server
 
 STATIC_DIR = 'static'
+CSS_DIR = 'css'
 
 def application(environ, start_response):
     path = environ["PATH_INFO"]
@@ -10,15 +11,29 @@ def application(environ, start_response):
         with open("login.html","r") as f:
             response = f.read().encode()
         status = "200 OK"
+
     elif path == "/favicon.ico":
         favicon_path = os.path.join(STATIC_DIR, 'favicon.ico')
         if os.path.exists(favicon_path):
             with open(favicon_path, 'rb') as f: # rb = read in binary
                 favicon_content = f.read()
+
             status = "200 OK"
             headers = [("Content-Type", "image/x-icon")]
             start_response(status, headers)
             return [favicon_content]
+
+    elif path == "/style.css":
+        css_path = os.path.join(CSS_DIR, 'style.css')
+        if os.path.exists(css_path):
+            with open(css_path, 'rb') as f:
+                css_content = f.read()
+                
+            status = "200 OK"
+            headers = [("Content-Type", "text/css")]
+            start_response(status, headers)
+            return [css_content]
+
     else:
         response = b"<h1>Page not found</h1>"
         status = "404 not found"
