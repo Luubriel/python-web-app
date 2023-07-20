@@ -6,17 +6,20 @@
   <link rel="stylesheet" type="text/css" href="/style.css">
   <title>Login</title>
 </head>
-<header>
+<body class="dark-theme">
+  <div id="login-title">
     <h1>Login</h1>
-</header>
-<body>
-  <form>
-    <div class="container">
-      <label>Username:</label>
-      <input type="text" placeholder="Enter username" name="username" required>
-      <label>Password:</label>
-      <input type="password" placeholder="Enter password" name="password" required>
-    </div>
-  </form>
+  </div>
+  <div id="login-box">
+    <form>
+      <fieldset>
+        <label>Username:</label>
+        <input class="login-input" type="text" placeholder="Enter username" name="username" required>
+        <label>Password:</label>
+        <input class="login-input" type="password" placeholder="Enter password" name="password" required>
+        <button id="login-button" type="submit" name="btn-ok">Login</button>
+      </fieldset>
+    </form>
+  </div>
 </body>
 </html>
