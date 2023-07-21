@@ -2,10 +2,19 @@ import os
 import wsgiref.simple_server
 import urllib.parse
 import json
+import mysql.connector
 
 ASSETS_DIR = 'assets'
 CSS_DIR = 'css'
 req = {}
+
+mydb = mysql.connector.connect(
+  host="",
+  user="",
+  password="",
+  database=""
+)
+
 
 def application(environ, start_response):
     # get requested path
@@ -35,10 +44,13 @@ def application(environ, start_response):
                 "nome-fantasia" : data["nome-fantasia"][0],
                 "natureza-juridica" : data["natureza-juridica"][0]
             }
-            # # adding to submission
-            # forms_data.append(req)dd
+            mycursor = mydb.cursor()
 
-            encode_data = json.dumps(req).encode('utf-8')
+            sql = "INSERT INTO forms (razao_social, nome_fantasia, natureza_juridica) VALUES (%s, %s, %s)"
+            value = (req["razao-social"], req["nome-fantasia"], req["natureza-juridica"])
+            mycursor.execute(sql, value)
+
+            mydb.commit()
 
             response = b"Enviado com sucesso.\n"
             status = "200 OK"
